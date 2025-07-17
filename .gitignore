@@ -1,0 +1,11 @@
+# Virtual environments
+.venv/
+__pycache__/
+*.pyc
+
+# macOS / Linux / Windows junk
+.DS_Store
+Thumbs.db
+
+# Ignore secrets (if used, don't hardcode them!)
+**/.env
