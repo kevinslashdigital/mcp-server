@@ -121,5 +121,6 @@ if __name__ == "__main__":
     # For SSE transport (HTTP server)
     print("🚀 Starting MCP server with SSE transport...")
     print("📡 Server will be available at: http://localhost:9999")
+    print("📡 Your MCP endpoint: http://localhost:9999/sse")
     app = mcp.sse_app
     uvicorn.run(app, host="0.0.0.0", port=9999)
