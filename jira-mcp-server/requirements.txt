@@ -2,3 +2,5 @@ openai
 mcp
 requests
 python-dotenv
+pytest
+pytest-mock

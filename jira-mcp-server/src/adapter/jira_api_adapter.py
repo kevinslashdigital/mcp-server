@@ -24,6 +24,7 @@ class JiraApiAdapter:
         Returns:
         str: The key of the created Jira issue (e.g., "ABC-123").
         """
+        print(summary, description_text)
         url = f"{self.base_url}/issue"
         payload = {
             "fields": {
@@ -66,7 +67,10 @@ class JiraApiAdapter:
                 "description": {
                     "type": "doc",
                     "version": 1,
-                    "content": [{"type": "text", "text": description_text} ]
+                    "content": [{
+                        "type": "paragraph",
+                        "content": [{"type": "text", "text": description_text}]
+                    }]
                 }
             }
         }
@@ -76,7 +80,7 @@ class JiraApiAdapter:
             return "ticket is successfully updated"
         else:
             print(response.text)
-            raise(f"Error updating ticket {response.status_code}")
+            raise Exception(f"Error updating ticket {response.status_code}")
 
 
     def list_tickets(self, max_results=10) -> List[Optional[Dict]]:
@@ -105,7 +109,7 @@ class JiraApiAdapter:
             return issues
         else:
             print(response.text)
-            raise(f"Error listing tickets {response.status_code}")
+            raise Exception(f"Error listing tickets {response.status_code}")
 
 
     def transition_ticket(self, issue_key: str, transition_id: str):
@@ -124,7 +128,7 @@ class JiraApiAdapter:
             return "Ticket status is successfully updated"
         else:
             print(response.text)
-            raise(f"Error transitioning ticket {response.status_code}")
+            raise Exception(f"Error transitioning ticket {response.status_code}")
 
 
     def get_transitions(self, issue_key: str) -> List[Optional[Dict]]:

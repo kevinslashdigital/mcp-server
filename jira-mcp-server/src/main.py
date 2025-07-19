@@ -23,7 +23,7 @@ def create_jira_ticket(title: str, description: str) -> str:
         str: The key of the created Jira issue (e.g., "ABC-123") or error.
     """
     try:
-        return adapter.create_ticket(title=title, description_text=description)
+        return adapter.create_ticket(summary=title, description_text=description)
     except Exception as e:
         return f"Error creating jira ticket: {str(e)}"
 
@@ -122,5 +122,6 @@ if __name__ == "__main__":
     print("🚀 Starting MCP server with SSE transport...")
     print("📡 Server will be available at: http://localhost:9999")
     print("📡 Your MCP endpoint: http://localhost:9999/sse")
-    app = mcp.sse_app
-    uvicorn.run(app, host="0.0.0.0", port=9999)
+    # app = mcp.sse_app
+    # uvicorn.run(app, host="0.0.0.0", port=9999)
+    mcp.run(transport='stdio')
