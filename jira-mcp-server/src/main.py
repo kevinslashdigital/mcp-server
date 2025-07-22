@@ -1,4 +1,4 @@
-import uvicorn
+# import uvicorn
 from mcp.server.fastmcp import FastMCP
 from adapter.jira_api_adapter import JiraApiAdapter
 from typing import List, Optional, Dict
@@ -117,7 +117,44 @@ def add_comment_to_jira_ticket(ticket_no: str, comment: str) -> str:
     except Exception:
         return None
 
-if __name__ == "__main__":
+@mcp.prompt()
+def summarize_ticket(ticket_key: str) -> str:
+    """
+    Generate a summary prompt for a Jira ticket
+    
+    Args:
+        ticket_key (str): The Jira ticket key (e.g., "ABC-123")
+    
+    Returns:
+        str: A prompt template for summarizing the ticket
+    """
+    return f"Please summarize the key details of Jira ticket {ticket_key}, including status, priority, and main issues."
+
+@mcp.prompt()
+def create_ticket_template() -> str:
+    """
+    Template for creating well-structured Jira tickets
+    
+    Returns:
+        str: A prompt template for creating structured Jira tickets
+    """
+    return "Create a Jira ticket with the following structure:\n- Clear title\n- Detailed description\n- Acceptance criteria\n- Priority level"
+
+@mcp.prompt()
+def analyze_ticket_comments(ticket_key: str) -> str:
+    """
+    Generate a prompt for analyzing ticket comments and discussions
+    
+    Args:
+        ticket_key (str): The Jira ticket key
+    
+    Returns:
+        str: A prompt template for analyzing ticket discussions
+    """
+    return f"Analyze the comments and discussions in Jira ticket {ticket_key}. Identify key decisions, blockers, and action items."
+
+def main():
+    """Main entry point for the MCP server"""
     # For SSE transport (HTTP server)
     print("🚀 Starting MCP server with SSE transport...")
     print("📡 Server will be available at: http://localhost:9999")
@@ -125,3 +162,6 @@ if __name__ == "__main__":
     # app = mcp.sse_app
     # uvicorn.run(app, host="0.0.0.0", port=9999)
     mcp.run(transport='stdio')
+
+if __name__ == "__main__":
+    main()

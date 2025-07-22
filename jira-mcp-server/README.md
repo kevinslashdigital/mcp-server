@@ -43,6 +43,9 @@ make start
 ```
 The server will start at [http://localhost:9999](http://localhost:9999)
 
+npx @modelcontextprotocol/inspector uv \
+  --directory /Users/yinseng/Documents/Projects/slash/mcp-server/jira-mcp-server run src/main.py
+
 ## Makefile Commands
 | Command        | Description                                  |
 | -------------- | -------------------------------------------- |
